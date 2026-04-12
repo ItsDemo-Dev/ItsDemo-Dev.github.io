@@ -312,6 +312,36 @@ body {
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
 }
 
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.hero.join-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.cta-button.roblox {
+    background: linear-gradient(135deg, #00b900, #00ff00);
+    border-color: #00b900;
+}
+
+.cta-button.roblox:hover {
+    background: linear-gradient(135deg, #00ff00, #00b900);
+    border-color: #00ff00;
+    box-shadow: 0 15px 40px rgba(0, 185, 0, 0.4), 0 0 30px rgba(0, 255, 0, 0.3);
+}
+
 @keyframes pulse {
     0%, 100% { box-shadow: 0 0 20px rgba(220, 20, 60, 0.5); }
     50% { box-shadow: 0 0 30px rgba(220, 20, 60, 0.8), 0 0 40px rgba(255, 215, 0, 0.3); }
@@ -884,6 +914,12 @@ body {
     text-align: center;
 }
 
+.join-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .join-title {
     font-family: 'Orbitron', monospace;
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -950,6 +986,16 @@ body {
     transform: translateY(-5px) scale(1.05);
     box-shadow: 0 15px 40px rgba(220, 20, 60, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.join-button.roblox {
+    background: linear-gradient(135deg, #00b900, #00ff00);
+    border-color: #00b900;
+}
+
+.join-button.roblox:hover {
+    background: linear-gradient(135deg, #00ff00, #00b900);
+    border-color: #00ff00;
 }
 
 .join-features {
