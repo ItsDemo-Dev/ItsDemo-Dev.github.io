@@ -240,10 +240,12 @@ function typeWriter() {
 // Initialize typing effect
 document.addEventListener('DOMContentLoaded', typeWriter);
 
-// Add sound effects toggle (optional bonus)
+// Background music and sound toggle
 let soundEnabled = false;
+const backgroundMusic = document.getElementById('backgroundMusic');
 const soundToggle = document.createElement('button');
 soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+soundToggle.title = 'Click to play/pause music';
 soundToggle.style.cssText = `
     position: fixed;
     bottom: 20px;
@@ -260,16 +262,46 @@ soundToggle.style.cssText = `
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 `;
 
 soundToggle.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
-    soundToggle.innerHTML = soundEnabled ? 
-        '<i class="fas fa-volume-up"></i>' : 
-        '<i class="fas fa-volume-mute"></i>';
+    if (soundEnabled) {
+        // Reset audio and try to play
+        backgroundMusic.currentTime = 0;
+        backgroundMusic.play().then(() => {
+            soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+            console.log('Music started successfully!');
+        }).catch(e => {
+            console.log('Music play failed:', e);
+            alert('Music could not play. Browser may require user interaction first.');
+            soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            soundEnabled = false;
+        });
+    } else {
+        backgroundMusic.pause();
+        soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        console.log('Music paused');
+    }
+});
+
+// Add hover effect
+soundToggle.addEventListener('mouseenter', () => {
+    soundToggle.style.transform = 'scale(1.1)';
+});
+
+soundToggle.addEventListener('mouseleave', () => {
+    soundToggle.style.transform = 'scale(1)';
 });
 
 document.body.appendChild(soundToggle);
+
+// Try to set volume and prepare audio
+backgroundMusic.volume = 0.3; // Set volume to 30%
+backgroundMusic.load(); // Preload the audio
+
+console.log('Gaming audio system initialized. Click the sound button to play epic background music!');
 
 // Performance optimization - Debounce scroll events
 function debounce(func, wait) {
