@@ -834,8 +834,8 @@ body {
 }
 
 .shadows-pfp {
-    object-position: top 10% center;
-    transform: translateY(-40px) scale(1.4);
+    object-position: top 5% center;
+    transform: translateY(-50px) scale(1.6);
 }
 
 .leader-pfp:hover {
