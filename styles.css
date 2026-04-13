@@ -312,6 +312,21 @@ body {
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
 }
 
+body:hover .shadows-pfp {
+    transform: translateY(-60px) scale(1.8);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+body .shadows-pfp:hover {
+    transform: translateY(-60px) scale(1.8);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.shadows-pfp:active {
+    transform: translateY(-60px) scale(1.9);
+    box-shadow: 0 0 30px rgba(220, 20, 60, 0.9);
+}
+
 .hero-buttons {
     display: flex;
     gap: 1.5rem;
@@ -834,7 +849,7 @@ body {
 }
 
 .shadows-pfp {
-    object-position: top 0% center;
+    object-position: haut 0% center;
     transform: translateY(-60px) scale(1.8);
 }
 
