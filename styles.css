@@ -838,12 +838,13 @@ body {
     object-fit: cover !important;
     object-position: center !important;
     cursor: pointer;
-    width: 100% !important;
-    height: 100% !important;
+    width: 140% !important;
+    height: auto !important;
     position: absolute;
     top: 0;
     left: 0;
-    transform: scale(1.5) !important;
+    transform: scale(1.6) !important;
+    transform-origin: top !important;
     border-radius: 50% !important;
 }
 
