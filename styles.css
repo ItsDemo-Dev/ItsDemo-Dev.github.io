@@ -1266,21 +1266,33 @@ body {
 
 .description-title {
     font-family: 'Orbitron', monospace;
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 900;
     color: var(--gold-accent);
     text-shadow: 
-        0 0 10px rgba(255, 215, 0, 0.8),
-        0 0 20px rgba(255, 215, 0, 0.6),
-        0 0 30px rgba(255, 215, 0, 0.4),
-        0 0 40px rgba(139, 0, 0, 0.3);
-    margin-bottom: 1rem;
-    letter-spacing: 3px;
-    animation: titleGlow 3s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+        0 0 15px rgba(255, 215, 0, 0.9),
+        0 0 30px rgba(255, 215, 0, 0.7),
+        0 0 45px rgba(255, 215, 0, 0.5),
+        0 0 60px rgba(139, 0, 0, 0.4);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    letter-spacing: 4px;
+    animation: titleGlow 3s ease-in-out infinite alternate, titleSlide 1s ease-out;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes titleSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes titleGlow {
@@ -1335,145 +1347,206 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.floating-panels {
+.floating-blocks {
     position: relative;
     width: 100%;
     height: 100%;
     min-height: 600px;
 }
 
-.floating-panel {
+.background-text {
     position: absolute;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 20px;
-    padding: 2rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(255, 215, 0, 0.1),
-        inset 0 0 20px rgba(255, 255, 255, 0.05);
-    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Orbitron', monospace;
+    font-size: 12rem;
+    font-weight: 900;
+    color: rgba(255, 215, 0, 0.03);
+    letter-spacing: 0.5rem;
+    z-index: 0;
+    pointer-events: none;
+    animation: backgroundFloat 20s ease-in-out infinite alternate;
 }
 
-.floating-panel::before {
+@keyframes backgroundFloat {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.03;
+    }
+    50% {
+        transform: translate(-48%, -52%) scale(1.05);
+        opacity: 0.05;
+    }
+    100% {
+        transform: translate(-52%, -48%) scale(1.02);
+        opacity: 0.03;
+    }
+}
+
+.floating-block {
+    position: absolute;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.15), transparent);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 30px;
+    padding: 1.5rem;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+        0 0 40px rgba(255, 215, 0, 0.2),
+        0 0 80px rgba(139, 0, 0, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.05);
+    z-index: 2;
+    animation: floatBlock 6s ease-in-out infinite;
+}
+
+.floating-block::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
-    border-radius: 20px;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.1), transparent);
+    border-radius: 40px;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.6s ease;
+    z-index: -1;
 }
 
-.floating-panel:hover {
-    transform: translateY(-10px);
-    border-color: rgba(255, 215, 0, 0.6);
+.floating-block:hover {
+    transform: translateY(-15px) scale(1.05);
     box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 40px rgba(255, 215, 0, 0.3),
-        inset 0 0 30px rgba(255, 255, 255, 0.1);
+        0 0 60px rgba(255, 215, 0, 0.4),
+        0 0 120px rgba(139, 0, 0, 0.5),
+        inset 0 0 50px rgba(255, 255, 255, 0.1);
     z-index: 10;
 }
 
-.floating-panel:hover::before {
+.floating-block:hover::before {
     opacity: 1;
 }
 
-/* Panel Sizes and Positions */
-.panel-large {
-    width: 280px;
-    height: 180px;
-    top: 10%;
-    left: 5%;
-    z-index: 3;
-}
-
-.panel-small {
-    width: 200px;
-    height: 120px;
-    top: 15%;
-    right: 10%;
-    z-index: 2;
-}
-
-.panel-medium {
-    width: 240px;
-    height: 140px;
-    bottom: 20%;
-    left: 25%;
-    z-index: 4;
-}
-
-.panel-small-alt {
+/* Block Sizes and Positions - Asymmetric Layout */
+.block-top-right {
     width: 180px;
     height: 110px;
-    bottom: 10%;
-    right: 5%;
-    z-index: 1;
+    top: 5%;
+    right: 8%;
+    z-index: 3;
+    animation-delay: 0s;
 }
 
-.panel-icon {
-    width: 50px;
-    height: 50px;
+.block-center-right {
+    width: 260px;
+    height: 160px;
+    top: 35%;
+    right: 5%;
+    z-index: 5;
+    animation-delay: 1.5s;
+}
+
+.block-bottom-right {
+    width: 220px;
+    height: 130px;
+    bottom: 15%;
+    right: 15%;
+    z-index: 4;
+    animation-delay: 3s;
+}
+
+.block-overlapping {
+    width: 160px;
+    height: 100px;
+    top: 45%;
+    right: 25%;
+    z-index: 6;
+    animation-delay: 4.5s;
+}
+
+@keyframes floatBlock {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.block-icon {
+    width: 45px;
+    height: 45px;
     margin: 0 auto 1rem;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(139, 0, 0, 0.2));
-    border: 2px solid rgba(255, 215, 0, 0.5);
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent);
+    border: 2px solid rgba(255, 215, 0, 0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--gold-accent);
-    transition: all 0.4s ease;
+    transition: all 0.6s ease;
+    animation: iconPulse 3s ease-in-out infinite;
 }
 
-.floating-panel:hover .panel-icon {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    }
+}
+
+.floating-block:hover .block-icon {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
     border-color: var(--gold-accent);
 }
 
-.floating-panel h3 {
+.floating-block h3 {
     font-family: 'Orbitron', monospace;
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 800;
     color: var(--gold-accent);
     margin: 0;
     text-align: center;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 /* Responsive positioning adjustments */
 @media (max-width: 1024px) {
-    .panel-large {
-        width: 240px;
-        height: 160px;
-        left: 0%;
+    .background-text {
+        font-size: 8rem;
     }
     
-    .panel-small {
-        width: 180px;
-        height: 110px;
+    .block-top-right {
+        width: 160px;
+        height: 100px;
         right: 5%;
     }
     
-    .panel-medium {
+    .block-center-right {
         width: 220px;
-        height: 130px;
-        left: 15%;
+        height: 140px;
+        right: 0%;
     }
     
-    .panel-small-alt {
-        width: 160px;
-        height: 100px;
-        right: 0%;
+    .block-bottom-right {
+        width: 190px;
+        height: 110px;
+        right: 10%;
+    }
+    
+    .block-overlapping {
+        width: 140px;
+        height: 90px;
+        right: 20%;
     }
 }
 
@@ -1561,38 +1634,45 @@ body {
         min-height: 500px;
     }
     
-    /* Mobile panel positioning */
-    .panel-large {
-        width: 220px;
-        height: 140px;
+    /* Mobile block positioning */
+    .background-text {
+        font-size: 6rem;
+    }
+    
+    .block-top-right {
+        width: 140px;
+        height: 90px;
         top: 5%;
         left: 50%;
         transform: translateX(-50%);
+        right: auto;
     }
     
-    .panel-small {
+    .block-center-right {
         width: 180px;
         height: 110px;
-        top: 35%;
-        left: 10%;
-        transform: none;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
     }
     
-    .panel-medium {
-        width: 200px;
-        height: 120px;
-        top: 35%;
-        right: 10%;
-        left: auto;
-        transform: none;
-    }
-    
-    .panel-small-alt {
+    .block-bottom-right {
         width: 160px;
         height: 100px;
         bottom: 5%;
         left: 50%;
         transform: translateX(-50%);
+        right: auto;
+    }
+    
+    .block-overlapping {
+        width: 130px;
+        height: 80px;
+        top: 55%;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
     }
 }
 
@@ -1620,37 +1700,44 @@ body {
         min-height: 400px;
     }
     
-    /* Small mobile panel positioning */
-    .panel-large {
-        width: 200px;
-        height: 120px;
+    /* Small mobile block positioning */
+    .background-text {
+        font-size: 4rem;
+    }
+    
+    .block-top-right {
+        width: 120px;
+        height: 80px;
         top: 0%;
         left: 50%;
         transform: translateX(-50%);
+        right: auto;
     }
     
-    .panel-small {
-        width: 160px;
-        height: 100px;
-        top: 30%;
-        left: 5%;
-        transform: none;
-    }
-    
-    .panel-medium {
-        width: 180px;
-        height: 110px;
-        top: 30%;
-        right: 5%;
-        left: auto;
-        transform: none;
-    }
-    
-    .panel-small-alt {
-        width: 140px;
+    .block-center-right {
+        width: 150px;
         height: 90px;
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+    }
+    
+    .block-bottom-right {
+        width: 130px;
+        height: 80px;
         bottom: 0%;
         left: 50%;
         transform: translateX(-50%);
+        right: auto;
+    }
+    
+    .block-overlapping {
+        width: 110px;
+        height: 70px;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
     }
 }
