@@ -835,7 +835,7 @@ body {
 }
 
 .shadows-pfp {
-    object-position: top center;
+    object-position: bottom center;
     cursor: pointer;
     width: 60%;
     height: 60%;
