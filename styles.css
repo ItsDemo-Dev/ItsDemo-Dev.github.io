@@ -837,8 +837,8 @@ body {
 .shadows-pfp {
     object-position: center;
     cursor: pointer;
-    width: 60%;
-    height: 60%;
+    width: 60% !important;
+    height: 60% !important;
 }
 
 .leader-pfp:hover {
