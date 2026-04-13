@@ -1164,9 +1164,8 @@ body {
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #000000 0%, #8b0000 50%, #000000 100%);
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fadeInUp 1s ease forwards;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @keyframes fadeInUp {
