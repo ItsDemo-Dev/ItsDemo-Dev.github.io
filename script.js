@@ -343,3 +343,19 @@ window.addEventListener('load', () => {
 // Console Easter egg
 console.log('%c THE ELITE REVOLUTIONARY ', 'background: #8b0000; color: #ffd700; font-size: 20px; font-weight: bold; padding: 10px;');
 console.log('%c Power. Strategy. Domination. ', 'background: #000; color: #fff; font-size: 14px; padding: 5px;');
+
+// Update PFP
+const pfpUrl = 'https://cdn.discordapp.com/attachments/1427705536341606500/1492900414633541652/G7gEWMwaoAAaxS7.jpg?ex=69de54db&is=69dd035b&hm=3c9c0194a519e33d12771a31ce51e1025464de68c7999af3b5bc2f623605167d&';
+
+// Function to update PFP
+function updatePFP() {
+    const pfpElements = document.querySelectorAll('.leader-pfp');
+    pfpElements.forEach(pfp => {
+        if (pfp.src.includes('1427705536341606500/1492900414633541652')) {
+            pfp.src = pfpUrl;
+        }
+    });
+}
+
+// Update PFP on page load
+updatePFP();
