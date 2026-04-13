@@ -836,16 +836,18 @@ body {
 
 .shadows-pfp {
     object-fit: cover !important;
-    object-position: center !important;
+    object-position: top center !important;
     cursor: pointer;
     width: 140% !important;
     height: auto !important;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -20px !important;
+    left: -20px !important;
     transform: scale(1.6) !important;
-    transform-origin: top !important;
+    transform-origin: top center !important;
     border-radius: 50% !important;
+    min-width: 140% !important;
+    min-height: 140% !important;
 }
 
 .leader-pfp:hover {
