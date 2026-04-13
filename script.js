@@ -346,3 +346,21 @@ console.log('%c Power. Strategy. Domination. ', 'background: #000; color: #fff; 
 
 // Update PFP on page load
 // PFP updates handled via HTML
+
+// Create description particles
+function createDescriptionParticles() {
+    const particlesContainer = document.getElementById('description-particles');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'description-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Initialize description particles on page load
+createDescriptionParticles();
