@@ -1335,16 +1335,44 @@ body {
 }
 
 .description-text {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto 5rem;
-    font-size: 1.2rem;
-    line-height: 1.9;
+    font-size: 1.4rem;
+    line-height: 2.2;
     color: var(--text-secondary);
     opacity: 0.95;
-    text-align: center;
+    text-align: left;
     padding: 0 2rem;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+}
+
+.description-text p {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.description-text p:last-child {
+    margin-bottom: 0;
+}
+
+.description-text .highlight {
+    font-weight: 700;
+    color: var(--gold-accent);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    position: relative;
+    display: inline-block;
+}
+
+.description-text .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+    opacity: 0.7;
 }
 
 .floating-blocks {
@@ -1624,10 +1652,19 @@ body {
     }
     
     .description-text {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         padding: 0 1.5rem;
         margin-bottom: 3rem;
-        text-align: center;
+        text-align: left;
+        line-height: 2;
+    }
+    
+    .description-text p {
+        margin-bottom: 2rem;
+    }
+    
+    .description-text .highlight {
+        font-size: 1.1rem;
     }
     
     .floating-panels {
@@ -1687,8 +1724,17 @@ body {
     }
     
     .description-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         padding: 0 1rem;
+        line-height: 1.9;
+    }
+    
+    .description-text p {
+        margin-bottom: 1.8rem;
+    }
+    
+    .description-text .highlight {
+        font-size: 1rem;
     }
     
     .description-right {
