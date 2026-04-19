@@ -54,20 +54,55 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Intersection Observer polyfill for older browsers
+if (!window.IntersectionObserver) {
+    window.IntersectionObserver = function(callback, options) {
+        this.callback = callback;
+        this.options = options;
+        this.elements = [];
+        
+        this.observe = function(element) {
+            this.elements.push(element);
+            // Fallback: show elements immediately
+            setTimeout(() => {
+                callback([{
+                    target: element,
+                    isIntersecting: true
+                }]);
+            }, 100);
+        };
+        
+        this.disconnect = function() {
+            this.elements = [];
+        };
+    };
+}
+
 // Intersection Observer for fade-in animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+let observer;
+try {
+    observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+} catch (e) {
+    console.log('Intersection Observer not supported, using fallback');
+    observer = {
+        observe: function(element) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
         }
-    });
-}, observerOptions);
+    };
+}
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
@@ -268,19 +303,26 @@ soundToggle.style.cssText = `
 soundToggle.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
     if (soundEnabled) {
-        // Reset audio and try to play
+        // Unmute and try to play
+        backgroundMusic.muted = false;
         backgroundMusic.currentTime = 0;
-        backgroundMusic.play().then(() => {
-            soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-            console.log('Music started successfully!');
-        }).catch(e => {
-            console.log('Music play failed:', e);
-            alert('Music could not play. Browser may require user interaction first.');
-            soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            soundEnabled = false;
-        });
+        const playPromise = backgroundMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                console.log('Music started successfully!');
+            }).catch(e => {
+                console.log('Music play failed:', e);
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                soundEnabled = false;
+                // Show user-friendly message in console instead of alert
+                console.log('Note: Click the button again or interact with the page first.');
+            });
+        }
     } else {
         backgroundMusic.pause();
+        backgroundMusic.muted = true;
         soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
         console.log('Music paused');
     }
@@ -297,11 +339,13 @@ soundToggle.addEventListener('mouseleave', () => {
 
 document.body.appendChild(soundToggle);
 
-// Try to set volume and prepare audio
+// Audio initialization - browsers block autoplay, so we only prepare the audio
 backgroundMusic.volume = 0.3; // Set volume to 30%
 backgroundMusic.load(); // Preload the audio
+backgroundMusic.muted = true; // Start muted to comply with browser autoplay policies
 
 console.log('Gaming audio system initialized. Click the sound button to play epic background music!');
+console.log('Note: Modern browsers require user interaction before playing audio.');
 
 // Performance optimization - Debounce scroll events
 function debounce(func, wait) {
@@ -344,8 +388,29 @@ window.addEventListener('load', () => {
 console.log('%c THE ELITE REVOLUTIONARY ', 'background: #8b0000; color: #ffd700; font-size: 20px; font-weight: bold; padding: 10px;');
 console.log('%c Power. Strategy. Domination. ', 'background: #000; color: #fff; font-size: 14px; padding: 5px;');
 
-// Update PFP on page load
-// PFP updates handled via HTML
+// Handle Discord CDN image loading errors
+function handleImageErrors() {
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Image failed to load:', this.src);
+            // Add fallback styling or placeholder
+            this.style.backgroundColor = 'rgba(139, 0, 0, 0.3)';
+            this.style.display = 'flex';
+            this.style.alignItems = 'center';
+            this.style.justifyContent = 'center';
+            
+            // Add icon placeholder
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-user';
+            icon.style.color = 'var(--gold-accent)';
+            icon.style.fontSize = '2rem';
+            this.parentNode.appendChild(icon);
+        });
+    });
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', handleImageErrors);
 
 // Create description particles
 function createDescriptionParticles() {
